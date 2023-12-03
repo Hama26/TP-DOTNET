@@ -1,0 +1,90 @@
+Question 2 : Exécutez. Que remarquez vous? Quel changement à faire pour que le système de routage
+prend en charge cet route? Expliquez les différentes éventualités rencontrées.
+
+==> il faut ajouter les endpoints qui pointent sur l'url contenant les nouveaux parametres
+
+Question 3: Présentez avec des exemples les différents systèmes de routage si vous travaillez avec le
+framework de développement web ASP.Net.
+
+==> Routage Conventionnel :
+
+C'est le routage par défaut dans ASP.NET MVC.
+
+Les routes sont configurées dans la classe RouteConfig (dans le fichier App_Start/RouteConfig.cs généralement).
+
+Exemple :
+
+csharp
+Copy code
+public class RouteConfig
+{
+    public static void RegisterRoutes(RouteCollection routes)
+    {
+        routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+        routes.MapRoute(
+            name: "Default",
+            url: "{controller}/{action}/{id}",
+            defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+        );
+    }
+}
+Cette configuration permet d'avoir des URLs comme http://example.com/Controller/Action/Id.
+
+Attributs de Routage :
+
+ASP.NET permet également d'utiliser des attributs de routage directement au-dessus des actions des contrôleurs.
+
+Exemple :
+
+csharp
+Copy code
+[Route("products/{productId}")]
+public IActionResult Details(int productId)
+{
+    // Logique de l'action
+}
+Avec cette approche, l'URL correspondante serait http://example.com/products/123.
+
+Routage basé sur les Conventions :
+
+ASP.NET Core introduit un nouveau système de routage basé sur les conventions.
+
+Exemple :
+
+csharp
+Copy code
+endpoints.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+Cela permet d'avoir des URLs telles que http://example.com/Controller/Action/Id de manière similaire au routage conventionnel d'ASP.NET MVC.
+
+Routage basé sur les Points d'Accès (Endpoint Routing) :
+
+ASP.NET Core utilise le système de routage basé sur les points d'accès.
+
+Exemple :
+
+csharp
+Copy code
+endpoints.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+Cette configuration est similaire au routage conventionnel, mais c'est intégré dans le nouveau système d'endpoints.
+
+Routage RESTful :
+
+Pour les applications qui suivent les conventions REST, vous pouvez utiliser un routage RESTful.
+
+Exemple :
+
+csharp
+Copy code
+[HttpGet("/api/products")]
+public IActionResult GetAllProducts()
+{
+    // Logique de l'action
+}
+Cette annotation permet d'atteindre l'action via l'URL http://example.com/api/products.
+
+Chacun de ces systèmes offre une flexibilité différente et peut être choisi en fonction des besoins spécifiques de votre application.

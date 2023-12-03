@@ -1,0 +1,10 @@
+<div class="form-group">
+    <!-- Label for the Membership Type dropdown -->
+    <label asp-for="MembershiptypeID" class="control-label">Membership Name</label>
+
+    <!-- Dropdown list for selecting Membership Type -->
+    <select asp-for="MembershiptypeID" class="form-control" asp-items="@ViewBag.member"></select>
+
+    <!-- Validation error message for Membership Type selection -->
+    <span asp-validation-for="MembershiptypeID" class="text-red"></span>
+</div>
